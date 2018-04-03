@@ -26,7 +26,7 @@ import com.gao.soloblog.common.util.logger.Logger;
 import com.gao.soloblog.common.util.logger.LoggerFactory;
 
 /**
- * App后台入口切面
+ * 入口切面
  * 
  */
 @Component
@@ -36,9 +36,9 @@ public class VerificationAspect {
     private static final String TOKEN_METHOD = "getToken";
 
     /**
-     * 所有appserver请求都加入此切面
+     * 所有请求都加入此切面
      */
-    @Pointcut("execution(public * com.danlu.appserver.web.ws.controller..*.*(..))")
+    @Pointcut("execution(public * com.gao.soloblog.web.controller..*.*(..))")
     public void pointcut() {
     }
 
@@ -50,12 +50,18 @@ public class VerificationAspect {
     @Around("pointcut()")
     public Object verify(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Method method = ((MethodSignature) proceedingJoinPoint.getSignature()).getMethod();
-        String methodName = method.getName();
         Object[] params = proceedingJoinPoint.getArgs();
 
         if (!this.proxyRequired(method)) {
             //不需要代理此请求
-            return proceedingJoinPoint.proceed();
+            ResultModel resultModel = new ResultModel();
+            resultModel = (ResultModel) proceedingJoinPoint.proceed();
+
+            //如果没有抛出任何异常 认为请求成功 设置请求状态为200
+            resultModel.setCode(SystemEnum.success_200.getIndex());
+            resultModel.setDescription(SystemEnum.success_200.getValue());
+            resultModel.setMetadata(ResultModelMetadata.parse(resultModel.getModel()));
+            return resultModel;
         } else {
             //需要代理此请求
             ResultModel resultModel = new ResultModel();
@@ -92,15 +98,7 @@ public class VerificationAspect {
                 resultModel.setCode(SystemEnum.server_exception.getIndex());
                 resultModel.setDescription(SystemEnum.server_exception.getValue());
             } finally {
-                if(!methodName.equals("compareAppVersion")){
-                    resultModel.setMetadata(ResultModelMetadata.parse(resultModel.getModel()));
-                }else{
-                    //修复老版本升级兼容问题
-                    ResultModelMetadata metadata = new ResultModelMetadata();
-                    metadata.setType(0);
-                    metadata.setClazz("cn.com.hd.mall.web.webservices.entity.response.mydl.version.AppVersionCompareResponse"); 
-                    resultModel.setMetadata(metadata);
-                }
+                resultModel.setMetadata(ResultModelMetadata.parse(resultModel.getModel()));
             }
             return resultModel;
         }
@@ -132,16 +130,20 @@ public class VerificationAspect {
      * @throws ReLoginException 如果Session失效了 返回重新登陆错误码
      */
     private boolean verifyToken(Method method, Object[] params) throws Exception {
-        String token = this.reflectToken(method, params);
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        HttpSession session = request.getSession();
-        String tokenCache = (String)session.getAttribute(
-                SESSION_AND_COOKIE.SESSION_TOKEN);
-        if (token == null) {
-            // 取不到Session 认为Session失效 要求重新登陆
+        try {
+            String token = this.reflectToken(method, params);
+            HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+            HttpSession session = request.getSession();
+            String tokenCache = (String)session.getAttribute(
+                    SESSION_AND_COOKIE.SESSION_TOKEN);
+            if (token == null) {
+                // 取不到Session 认为Session失效 要求重新登陆
+                throw new ReLoginException();
+            }
+            return token.equals(tokenCache);
+        } catch (Exception e) {
             throw new ReLoginException();
         }
-        return token.equals(tokenCache);
     }
 
     /**

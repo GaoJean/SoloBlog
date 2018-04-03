@@ -11,7 +11,7 @@ public @interface Verification {
     /**
      * token 验证
      */
-	public boolean token() default true;
+	public boolean token() default false;
 	
 }
 

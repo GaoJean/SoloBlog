@@ -8,7 +8,7 @@ public class AnnotationUtil {
     public static boolean containsAnnotation(Method method, Class<?> clazz) {
         Annotation[] annotations = method.getAnnotations();
         for(int i = 0; i < annotations.length; i++) {
-            // Spring 会代理注�? 判断其子类类�?
+            // Spring 会代理注解 判断其子类类型
             boolean suitableAnnotation = AnnotationUtil.isSuitableAnnotation(clazz, annotations[i]);
             if(suitableAnnotation == true) {
                 return true;
@@ -20,7 +20,7 @@ public class AnnotationUtil {
     public static <T> T getAnnotationWithType(Method method, Class<T> clazz) {
         Annotation[] annotations = method.getAnnotations();
         for(int i = 0; i < annotations.length; i++) {
-            // Spring 会代理注�? 判断其子类类�?
+            // Spring 会代理注解 判断其子类类型
             boolean suitableAnnotation = AnnotationUtil.isSuitableAnnotation(clazz, annotations[i]);
             if(suitableAnnotation == true) {
                 return clazz.cast(annotations[i]);
@@ -54,7 +54,7 @@ public class AnnotationUtil {
         for(int i = 0; i < parameterAnnotations.length; i++) {
             for(int j = 0; j < parameterAnnotations[i].length; j++) {
                 Annotation annotation = parameterAnnotations[i][j];
-                // Spring 会代理注�? 判断其子类类�?
+                // Spring 会代理注解 判断其子类类型
                 boolean suit = AnnotationUtil.isSuitableAnnotation(clazz, annotation);
                 if(suit == true) {
                     return i;

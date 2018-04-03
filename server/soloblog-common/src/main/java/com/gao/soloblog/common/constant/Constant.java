@@ -982,4 +982,6 @@ public interface Constant {
     public static final String All_TIME_SELL = "1"; // 全时段售卖
     
     public static final String SPECIFY_TIME_SELL = "2"; // 指定时段售卖
+    public static final int PAGE_CURRENT = 0;
+    public static final int PAGE_SIZE = 15;
 }
