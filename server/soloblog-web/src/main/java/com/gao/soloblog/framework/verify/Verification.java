@@ -1,4 +1,4 @@
-package com.gao.soloblog.web.framework.verify;
+package com.gao.soloblog.framework.verify;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

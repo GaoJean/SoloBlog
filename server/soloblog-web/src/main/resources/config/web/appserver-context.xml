@@ -8,15 +8,15 @@
 
 	<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
 
-	<bean id="beanUtils" class="com.danlu.appserver.common.util.BeanUtils" scope="singleton" />
+	<bean id="beanUtils" class="com.gao.soloblog.common.util.BeanUtils" scope="singleton" />
 	<!-- 读取properties配置文件 -->
-	<bean id="properties" class="com.danlu.appserver.common.util.PropertiesUtil"
+	<bean id="properties" class="com.gao.soloblog.common.util.PropertiesUtil"
 		init-method="init">
 		<property name="appserver" value="classpath:appserver.properties" />
 		<property name="business" value="classpath:business.properties" />
 	</bean>
 	<!-- 可配置常量类 -->
-	<bean id="appServerModel" class="com.danlu.appserver.common.entity.AppServerModel">
+	<bean id="appServerModel" class="com.gao.soloblog.common.entity.AppServerModel">
 		<property name="verifyToken" value="${appserver.verifyToken}" />
 		<property name="picThumbanailEnabled" value="${appserver.pic.thumbanail.enabled}" />
 		<property name="picThumbanailSuffix" value="${appserver.pic.thumbanail.suffix}" />

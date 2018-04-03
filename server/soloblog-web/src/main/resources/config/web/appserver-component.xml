@@ -6,8 +6,8 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 	
-	<context:component-scan base-package="com.danlu.appserver.web.ws.adaptor" />
-	<context:component-scan base-package="com.danlu.appserver.web.ws.controller" />
-	<context:component-scan base-package="com.danlu.appserver.web.framework.verify"/>
+	<context:component-scan base-package="com.gao.soloblog.web.adaptor" />
+	<context:component-scan base-package="com.gao.soloblog.web.controller" />
+	<context:component-scan base-package="com.gao.soloblog.web.framework.verify"/>
 	
 </beans>
