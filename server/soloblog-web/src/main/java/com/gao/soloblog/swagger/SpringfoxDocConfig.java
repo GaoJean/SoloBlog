@@ -23,13 +23,20 @@ public class SpringfoxDocConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .select().apis(RequestHandlerSelectors.basePackage("com.gao.soloblog.web.controller"))
-                .paths(PathSelectors.any()).build();
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.gao.soloblog.web.controller"))
+                .paths(PathSelectors.any())
+                .build();
     }
-    
+
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("RESTful API Docs Of SoloBlog").description("RESTful API Docs")
-                .termsOfServiceUrl("http://stock.danlu.com/").contact("GaoJean").version("1.0").build();
+        return new ApiInfoBuilder()
+                .title("RESTful API Docs Of SoloBlog")
+                .description("RESTful API Docs")
+                .termsOfServiceUrl("http://stock.danlu.com/")
+                .contact("GaoJean")
+                .version("1.0")
+                .build();
     }
 
 }
