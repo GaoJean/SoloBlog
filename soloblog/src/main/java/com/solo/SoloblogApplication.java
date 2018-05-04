@@ -1,0 +1,12 @@
+package com.solo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SoloblogApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SoloblogApplication.class, args);
+	}
+}
