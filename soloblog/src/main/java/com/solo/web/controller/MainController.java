@@ -1,5 +1,7 @@
-package com.solo.controller;
+package com.solo.web.controller;
 
+import com.solo.common.model.ResultModel;
+import com.solo.common.verify.Verification;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +21,12 @@ public class MainController {
 
     @GetMapping("/test")
     @ApiOperation(value = "testMain",notes = "My frist controller")
-    public String testMain(@RequestParam(value = "id") String id){
-        logger.info("testMain={}",id);
-        return "hello";
+    @Verification(token = false)
+    public ResultModel testMain(@RequestParam(value = "id") String id){
+        logger.info("testMain = {}",id);
+        ResultModel resultModel = new ResultModel();
+        resultModel.setModel("hello");
+        return resultModel;
     }
 
 

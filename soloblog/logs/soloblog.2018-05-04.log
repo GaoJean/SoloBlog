@@ -36,7 +36,7 @@ java.lang.UnsatisfiedLinkError: E:\apache-tomcat-7.0.67\apache-tomcat-7.0.67\bin
 2018-05-04 14:53:22.660 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
 2018-05-04 14:53:22.660 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
 2018-05-04 14:53:22.660 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
-2018-05-04 14:53:23.068 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/test],methods=[GET]}" onto public java.lang.String com.solo.controller.MainController.testMain()
+2018-05-04 14:53:23.068 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/test],methods=[GET]}" onto public java.lang.String com.solo.web.controller.MainController.testMain()
 2018-05-04 14:53:23.071 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
 2018-05-04 14:53:23.076 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
 2018-05-04 14:53:23.077 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
@@ -59,9 +59,9 @@ java.lang.UnsatisfiedLinkError: E:\apache-tomcat-7.0.67\apache-tomcat-7.0.67\bin
 2018-05-04 14:53:32.679 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
 2018-05-04 14:53:32.680 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
 2018-05-04 14:53:32.702 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 22 ms
-2018-05-04 14:53:32.722 [http-nio-8080-exec-2] INFO  com.solo.controller.MainController - hello
-2018-05-04 15:49:22.100 [http-nio-8080-exec-9] INFO  com.solo.controller.MainController - hello
-2018-05-04 15:49:58.208 [http-nio-8080-exec-2] INFO  com.solo.controller.MainController - hello
+2018-05-04 14:53:32.722 [http-nio-8080-exec-2] INFO  com.solo.web.controller.MainController - hello
+2018-05-04 15:49:22.100 [http-nio-8080-exec-9] INFO  com.solo.web.controller.MainController - hello
+2018-05-04 15:49:58.208 [http-nio-8080-exec-2] INFO  com.solo.web.controller.MainController - hello
 2018-05-04 16:38:42.966 [main] INFO  com.solo.SoloblogApplication - Starting SoloblogApplication on Jianjian-PC with PID 1768 (F:\Danlu\IDEA\soloblog\target\classes started by Jianjian in F:\Danlu\IDEA\soloblog)
 2018-05-04 16:38:42.989 [main] INFO  com.solo.SoloblogApplication - No active profile set, falling back to default profiles: default
 2018-05-04 16:38:43.044 [main] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@651aed93: startup date [Fri May 04 16:38:43 CST 2018]; root of context hierarchy
@@ -100,7 +100,7 @@ java.lang.UnsatisfiedLinkError: E:\apache-tomcat-7.0.67\apache-tomcat-7.0.67\bin
 2018-05-04 16:38:45.464 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
 2018-05-04 16:38:45.464 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
 2018-05-04 16:38:45.464 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
-2018-05-04 16:38:45.976 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/test],methods=[GET]}" onto public java.lang.String com.solo.controller.MainController.testMain(java.lang.String)
+2018-05-04 16:38:45.976 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/test],methods=[GET]}" onto public java.lang.String com.solo.web.controller.MainController.testMain(java.lang.String)
 2018-05-04 16:38:45.978 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/v2/api-docs],methods=[GET],produces=[application/json || application/hal+json]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)
 2018-05-04 16:38:45.982 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/swagger-resources/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
 2018-05-04 16:38:45.983 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
@@ -123,5 +123,5 @@ java.lang.UnsatisfiedLinkError: E:\apache-tomcat-7.0.67\apache-tomcat-7.0.67\bin
 2018-05-04 16:39:17.770 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
 2018-05-04 16:39:17.770 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
 2018-05-04 16:39:17.797 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 27 ms
-2018-05-04 16:39:17.854 [http-nio-8080-exec-1] INFO  com.solo.controller.MainController - testMain=1
-2018-05-04 16:47:15.887 [http-nio-8080-exec-3] INFO  com.solo.controller.MainController - testMain=1
+2018-05-04 16:39:17.854 [http-nio-8080-exec-1] INFO  com.solo.web.controller.MainController - testMain=1
+2018-05-04 16:47:15.887 [http-nio-8080-exec-3] INFO  com.solo.web.controller.MainController - testMain=1
