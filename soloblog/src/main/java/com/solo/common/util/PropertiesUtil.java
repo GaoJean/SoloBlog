@@ -8,9 +8,10 @@ import org.springframework.core.io.Resource;
 
 
 /**
+ * 可以追加多个properties文件
  * 读取properties配置文件
  * @author 
- * @see 可以追加多个properties文件
+ * @see
  */
 public class PropertiesUtil{
 

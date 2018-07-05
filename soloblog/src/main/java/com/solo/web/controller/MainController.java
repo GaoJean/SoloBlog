@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Jianjian on 2018/5/3.
  */
@@ -29,5 +31,13 @@ public class MainController {
         return resultModel;
     }
 
+
+    public static void main(String[] args) {
+        Double price = 0.01;
+        BigDecimal bigDecimal = new BigDecimal(price);
+        BigDecimal bignum2 = new BigDecimal("100");
+        Integer amount = bigDecimal.multiply(bignum2).intValue();
+        System.out.println(amount);
+    }
 
  }

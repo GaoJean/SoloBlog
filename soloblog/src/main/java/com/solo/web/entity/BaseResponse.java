@@ -12,11 +12,16 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class BaseResponse implements Serializable{
+
+    private static final long serialVersionUID = 1671194684653114158L;
     /**
      * 成功与否 0-成功 1-失败 其他-由具体接口定义
      */
 	@ApiModelProperty(value="业务成功code")
     private String success;
+
+	@ApiModelProperty(value = "token")
+    private String token;
 
 
 }

@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 .termsOfServiceUrl("")
                 .contact(new Contact("GaoJean",
                         "https://github.com/GaoJean/SoloBlog.git","183493499070@163.com"))
-                .version("1,0")
+                .version("1.0.0")
                 .build();
     }
 }
