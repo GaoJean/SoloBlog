@@ -2,12 +2,17 @@ package com.solo.web.service;
 
 import com.solo.common.util.excel.ExcelUtil;
 import com.solo.common.util.excel.impl.ExcelContent;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,12 +30,12 @@ public class ExcelService {
     private final static Logger logger = LoggerFactory.getLogger(ExcelService.class);
 
     public boolean createExcel(HttpServletRequest request, HttpServletResponse response, Map<String, Object> params) throws Exception {
-        ExcelContent excelContent = new ExcelContent();
+        /*ExcelContent excelContent = new ExcelContent();
         this.addHeaders(excelContent);
         this.addTitle(excelContent);
         List<List<String>> content = new ArrayList<>();
         String filePath = (String) params.get("filePath");
-        String fileName = (String) params.get("fileName");
+        String fileName = "test.xls";
         //1.查询数据，组装data
         for (int i = 0; i < 10; i++) {
             List<String> data = new ArrayList<>();
@@ -46,8 +51,17 @@ public class ExcelService {
         footerMap.put(0, "总计");
         footerMap.put(2, "22222");
         excelContent.setFooterMap(footerMap);
-        ExcelUtil.createExcel(response,fileName, filePath, excelContent);
+        ExcelUtil.createExcel(response,fileName, filePath, excelContent);*/
 
+        WritableWorkbook book = Workbook.createWorkbook(response.getOutputStream());
+        WritableSheet sheet = book.createSheet("1",0);
+        Label label =new Label(0, 0, " test ");
+        sheet.addCell(label);
+
+        jxl.write.Number number = new jxl.write.Number(1, 0, 555.12541);
+        sheet.addCell(number);
+        book.write();
+        book.close();
         //3.返回结果
         return true;
     }

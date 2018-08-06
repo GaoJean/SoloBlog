@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ExcelUtil {
         Map<String, String> totalMap = context.getTotalNumAndPrice();
         Map<Integer, String> footerMap = context.getFooterMap();
         if (titleList == null || (titleList.size() == 0 && complexTitle.size() == 0) || contentList == null
-                || StringUtils.isBlank(filePath)) {
+                ) {
             logger.info("createExcelFile process exit");
             return;
         }
@@ -53,6 +54,7 @@ public class ExcelUtil {
                 fileName += fileName;
             }
         }
+
         FileOutputStream fos = null;
         try {
             File folder = new File(filePath);
@@ -65,7 +67,7 @@ public class ExcelUtil {
             }
             fos = new FileOutputStream(file);
             WritableSheet wsheet = null;
-            this.setResponseHeader(response,fileName);
+            //this.setResponseHeader(response,fileName);
             ExcelCommon.getWritableWorkbook(fos);
             int cellCount = titleList.size() == 0 ? complexTitle.get(1).size() : titleList.size(); //单元格数
             int length = contentList.size() == 0 ? contentSize : contentList.size(); //数据条数
@@ -217,6 +219,12 @@ public class ExcelUtil {
             }
             ExcelCommon.getWritableWorkbook().write();
             ExcelCommon.getWritableWorkbook().close();
+
+           /* OutputStream outputStream = response.getOutputStream();// 打开流
+            wb.write(outputStream);// HSSFWorkbook写入流
+            wb.close();// HSSFWorkbook关闭
+            outputStream.flush();// 刷新流
+            outputStream.close();// 关闭流*/
         } catch (Exception e) {
             logger.error("createExcelFile", e);
             throw e;
@@ -234,8 +242,8 @@ public class ExcelUtil {
     }
 
     //发送响应流方法
-    public void setResponseHeader(HttpServletResponse response, String fileName) {
-        try {
+    private void setResponseHeader(HttpServletResponse response, String fileName) {
+       /* try {
             try {
                 fileName = new String(fileName.getBytes(),"ISO8859-1");
             } catch (UnsupportedEncodingException e) {
@@ -248,6 +256,6 @@ public class ExcelUtil {
             response.addHeader("Cache-Control", "no-cache");
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
 }
