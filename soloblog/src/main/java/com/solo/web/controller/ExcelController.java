@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -31,10 +33,10 @@ public class ExcelController {
     @PostMapping("/createExcel")
     @ApiOperation(value = "createExcel", notes = "生成Excel")
     @Verification(token = false)
-    public ResultModel createExcel(@RequestBody Map<String, Object> params) throws Exception {
+    public ResultModel createExcel(@RequestBody Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) throws Exception {
         logger.info("params = {}", params);
         ResultModel resultModel = new ResultModel();
-        resultModel.setModel(excelService.createExcel(params));
+        resultModel.setModel(excelService.createExcel(request,response,params));
         return resultModel;
     }
 }

@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +24,7 @@ public class ExcelService {
 
     private final static Logger logger = LoggerFactory.getLogger(ExcelService.class);
 
-    public boolean createExcel(Map<String, Object> params) throws Exception {
+    public boolean createExcel(HttpServletRequest request, HttpServletResponse response, Map<String, Object> params) throws Exception {
         ExcelContent excelContent = new ExcelContent();
         this.addHeaders(excelContent);
         this.addTitle(excelContent);
@@ -44,7 +46,7 @@ public class ExcelService {
         footerMap.put(0, "总计");
         footerMap.put(2, "22222");
         excelContent.setFooterMap(footerMap);
-        ExcelUtil.createExcel(fileName, filePath, excelContent);
+        ExcelUtil.createExcel(response,fileName, filePath, excelContent);
 
         //3.返回结果
         return true;

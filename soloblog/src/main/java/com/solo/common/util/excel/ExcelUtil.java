@@ -8,8 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,7 @@ public class ExcelUtil {
     private static final int EXCEL_SHEETSIZE = 50000;
 
 
-    public static void createExcel(String fileName, String filePath, ExcelContent context) throws Exception {
+    public static void createExcel(HttpServletResponse response, String fileName, String filePath, ExcelContent context) throws Exception {
         List<String> titleList = context.getTitle();
         List<List<Bubble>> complexTitle = context.getComplexTitle();
         List<String> headers = context.getHeaders();
@@ -63,6 +65,7 @@ public class ExcelUtil {
             }
             fos = new FileOutputStream(file);
             WritableSheet wsheet = null;
+            this.setResponseHeader(response,fileName);
             ExcelCommon.getWritableWorkbook(fos);
             int cellCount = titleList.size() == 0 ? complexTitle.get(1).size() : titleList.size(); //单元格数
             int length = contentList.size() == 0 ? contentSize : contentList.size(); //数据条数
@@ -228,5 +231,23 @@ public class ExcelUtil {
             }
         }
 
+    }
+
+    //发送响应流方法
+    public void setResponseHeader(HttpServletResponse response, String fileName) {
+        try {
+            try {
+                fileName = new String(fileName.getBytes(),"ISO8859-1");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            response.setContentType("application/octet-stream;charset=ISO8859-1");
+            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
+            response.addHeader("Pargam", "no-cache");
+            response.addHeader("Cache-Control", "no-cache");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

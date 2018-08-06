@@ -23,7 +23,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.solo.web.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.solo.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 .termsOfServiceUrl("")
                 .contact(new Contact("GaoJean",
                         "https://github.com/GaoJean/SoloBlog.git","183493499070@163.com"))
-                .version("1.0.0")
+                .version("1,0")
                 .build();
     }
 }
