@@ -10,5 +10,8 @@ spring:
     show-sql: true
   mvc:
     view:
-      prefix: /WEB-INF/jsp
-      suffix: .jsp
+      suffix: .html
+      prefix: classpath:/templates/
+  thymeleaf:
+    prefix: classpath:/templates/
+

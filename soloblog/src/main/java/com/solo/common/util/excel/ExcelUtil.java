@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class ExcelUtil {
     private static final int EXCEL_SHEETSIZE = 50000;
 
 
-    public static void createExcel(HttpServletResponse response, String fileName, String filePath, ExcelContent context) throws Exception {
+    public static void createExcel(HttpServletResponse response, String fileName, ExcelContent context) throws Exception {
         List<String> titleList = context.getTitle();
         List<List<Bubble>> complexTitle = context.getComplexTitle();
         List<String> headers = context.getHeaders();
@@ -47,28 +48,13 @@ public class ExcelUtil {
             logger.info("createExcelFile process exit");
             return;
         }
-        if (StringUtils.isBlank(fileName)) {
-            fileName = String.valueOf(System.currentTimeMillis());
-        } else {
-            if (!fileName.endsWith(fileName)) {
-                fileName += fileName;
-            }
-        }
 
-        FileOutputStream fos = null;
         try {
-            File folder = new File(filePath);
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-            File file = new File(filePath + File.separator + fileName);
-            if (file.exists()) {
-                file.delete();
-            }
-            fos = new FileOutputStream(file);
+
             WritableSheet wsheet = null;
             //this.setResponseHeader(response,fileName);
-            ExcelCommon.getWritableWorkbook(fos);
+            setResponseHeader(response, fileName);
+            ExcelCommon.getWritableWorkbook(response.getOutputStream());
             int cellCount = titleList.size() == 0 ? complexTitle.get(1).size() : titleList.size(); //单元格数
             int length = contentList.size() == 0 ? contentSize : contentList.size(); //数据条数
             int sheetSize = (sheetCount == null ? EXCEL_SHEETSIZE : sheetCount.intValue());
@@ -230,32 +216,35 @@ public class ExcelUtil {
             throw e;
         } finally {
             try {
-                if (fos != null) {
-                    fos.close();
+                if (response.getOutputStream() != null) {
+                    response.getOutputStream().close();
                 }
-                logger.info("createExcelFile finished!");
+                logger.info("response.getOutputStream() finished!");
             } catch (Exception ex) {
-                logger.error("FileOutputStream关闭异常", ex);
+                logger.error("response.getOutputStream()", ex);
             }
         }
 
     }
 
     //发送响应流方法
-    private void setResponseHeader(HttpServletResponse response, String fileName) {
-       /* try {
+    private static void setResponseHeader(HttpServletResponse response, String fileName) {
+        try {
             try {
-                fileName = new String(fileName.getBytes(),"ISO8859-1");
+                fileName = URLEncoder.encode(fileName, "UTF-8");
+                //fileName = new String(fileName.getBytes(), "UTF-8");
             } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
+                logger.info("e:{}", e.getMessage());
                 e.printStackTrace();
             }
-            response.setContentType("application/octet-stream;charset=ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/octet-stream;charset=UTF-8");
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
             response.addHeader("Pargam", "no-cache");
             response.addHeader("Cache-Control", "no-cache");
         } catch (Exception ex) {
+            logger.info("ex:{}", ex.getMessage());
             ex.printStackTrace();
-        }*/
+        }
     }
 }

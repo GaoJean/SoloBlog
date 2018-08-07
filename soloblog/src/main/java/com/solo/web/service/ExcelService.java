@@ -30,11 +30,10 @@ public class ExcelService {
     private final static Logger logger = LoggerFactory.getLogger(ExcelService.class);
 
     public boolean createExcel(HttpServletRequest request, HttpServletResponse response, Map<String, Object> params) throws Exception {
-        /*ExcelContent excelContent = new ExcelContent();
+        ExcelContent excelContent = new ExcelContent();
         this.addHeaders(excelContent);
         this.addTitle(excelContent);
         List<List<String>> content = new ArrayList<>();
-        String filePath = (String) params.get("filePath");
         String fileName = "test.xls";
         //1.查询数据，组装data
         for (int i = 0; i < 10; i++) {
@@ -51,9 +50,9 @@ public class ExcelService {
         footerMap.put(0, "总计");
         footerMap.put(2, "22222");
         excelContent.setFooterMap(footerMap);
-        ExcelUtil.createExcel(response,fileName, filePath, excelContent);*/
+        ExcelUtil.createExcel(response,fileName, excelContent);
 
-        WritableWorkbook book = Workbook.createWorkbook(response.getOutputStream());
+        /*WritableWorkbook book = Workbook.createWorkbook(response.getOutputStream());
         WritableSheet sheet = book.createSheet("1",0);
         Label label =new Label(0, 0, " test ");
         sheet.addCell(label);
@@ -61,7 +60,7 @@ public class ExcelService {
         jxl.write.Number number = new jxl.write.Number(1, 0, 555.12541);
         sheet.addCell(number);
         book.write();
-        book.close();
+        book.close();*/
         //3.返回结果
         return true;
     }
