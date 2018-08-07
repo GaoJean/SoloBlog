@@ -14,18 +14,15 @@ import java.math.BigDecimal;
  */
 @RestController
 @RequestMapping("/main")
-public class TestController {
+public class TestController extends BaseController{
 
-    private final static Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @GetMapping("/test")
     @ApiOperation(value = "testMain", notes = "My frist controller")
     @Verification(token = false)
     public ResultModel testMain(@RequestParam(value = "id") String id) {
         logger.info("testMain = {}", id);
-        ResultModel resultModel = new ResultModel();
-        resultModel.setModel("hello");
-        return resultModel;
+        return success("hello");
     }
 
 

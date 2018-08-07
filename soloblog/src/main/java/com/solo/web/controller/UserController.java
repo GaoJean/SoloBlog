@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
-public class UserController {
-
-    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+public class UserController extends BaseController{
 
     @Autowired
     private UserAdaptor userAdaptor;
@@ -28,12 +26,10 @@ public class UserController {
     @Verification(token = false)
     public ResultModel login(@RequestBody LoginRequest request){
         logger.info("{用户管理UserController}[方法入：login(),参数：request = {}]",request.toString());
-        ResultModel resultModel = new ResultModel();
         LoginResponse response = new LoginResponse();
         String name = userAdaptor.getUserName();
         response.setNikename(name);
-        resultModel.setModel(response);
-        return resultModel;
+        return success(response);
     }
 
     @PostMapping("/get")

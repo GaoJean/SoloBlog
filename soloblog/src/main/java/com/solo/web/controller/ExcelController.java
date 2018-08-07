@@ -27,8 +27,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/excel")
-public class ExcelController {
-    private final static Logger logger = LoggerFactory.getLogger(ExcelController.class);
+public class ExcelController extends BaseController{
 
     @Autowired
     private ExcelService excelService;
@@ -39,11 +38,7 @@ public class ExcelController {
     public ResultModel createExcel( HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> params = new HashMap<>();
         logger.info("params = {}", params);
-        ResultModel resultModel = new ResultModel();
-
-
-        resultModel.setModel(excelService.createExcel(request, response, params));
-        return resultModel;
+        return success(excelService.createExcel(request, response, params));
     }
 
 
