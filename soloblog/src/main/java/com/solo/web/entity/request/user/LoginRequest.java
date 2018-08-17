@@ -16,5 +16,6 @@ public class LoginRequest extends BaseRequest {
     private String username;
 
     private String password;
+    private Long id ;
 
 }

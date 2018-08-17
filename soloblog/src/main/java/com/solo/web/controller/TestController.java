@@ -1,13 +1,17 @@
 package com.solo.web.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.solo.common.exception.BusinessException;
+import com.solo.common.http.HttpProxy;
 import com.solo.common.model.ResultModel;
+import com.solo.common.util.BeanMapperUtil;
 import com.solo.common.verify.Verification;
+import com.solo.web.entity.request.user.LoginRequest;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * Created by Jianjian on 2018/5/3.
@@ -16,6 +20,8 @@ import java.math.BigDecimal;
 @RequestMapping("/main")
 public class TestController extends BaseController{
 
+    @Autowired
+    private HttpProxy httpProxy;
 
     @GetMapping("/test")
     @ApiOperation(value = "testMain", notes = "My frist controller")
@@ -26,8 +32,14 @@ public class TestController extends BaseController{
     }
 
 
-    public static void main(String[] args) {
-        BigDecimal total = BigDecimal.ZERO;
+    public static void main(String[] args) throws Exception {
+        LoginRequest req = new LoginRequest();
+        req.setPassword("1231");
+        req.setUsername("123123");
+        req.setId(1l);
+        Map<String,Object> param = BeanMapperUtil.convertToMap(req);
+        System.out.println(JSONObject.toJSONString(param));
+       /* BigDecimal total = BigDecimal.ZERO;
         for (int i = 0; i < 10; i++) {
             Double price = 0.01;
             BigDecimal bigDecimal = new BigDecimal(Double.toString(price));
@@ -35,7 +47,7 @@ public class TestController extends BaseController{
 
         }
 
-        System.out.println(total.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        System.out.println(total.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());*/
 
     }
 
@@ -43,5 +55,15 @@ public class TestController extends BaseController{
     public String toIndex() {
         return "/index";
     }
+
+    @PostMapping("/testHttp")
+    public ResultModel testHttp() throws BusinessException {
+
+        return success(httpProxy.createOrder("a"));
+    }
+
+
+
+
 
 }

@@ -42,8 +42,8 @@ public class VerificationAspect {
 
     /**
      * 主验证方法
-     * 
-     * @see 验证 token
+     * 验证 token
+     * @see
      */
     @Around("pointcut()")
     public Object verify(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
