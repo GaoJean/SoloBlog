@@ -6,6 +6,7 @@ import com.solo.common.model.ResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,30 +17,37 @@ import java.util.Map;
 @Component
 public class HttpProxy {
 
-    @Autowired
-    HttpHandle handle;
+	@Autowired
+	HttpHandle handle;
 
-    private static final String HTTPHOST="";
+	private static final String HTTPHOST = "https://gitlab.com/GavinGJ/test/branches";
 
-    public String createOrder(String bodyJson) throws BusinessException {
+	private static final String API_VERSION_KEY = "X-ApiVersion";
 
-        ResultModel httpResult = handle.post(HTTPHOST,  bodyJson);
-        if(httpResult == null || httpResult.getModel() == null){
-            throw new BusinessException(BussinessErrorCodeEnum.BIZ_ERROR,"调用http请求失败！");
-        }
-        return (String) httpResult.getModel();
-    }
+	private static final String API_VERSION_VALUE = "1.0";
 
-    public Map<String,Object> getGitLabproject() throws BusinessException {
+	private static final String TOKEN = "PRIVATE-TOKEN";
 
-        List<NameValuePair> formparams = new ArrayList <NameValuePair>();
-        String url = "http://git.doctorwork.com/projects";
-        Map<String, Object> uriParam = new HashMap<>();
-        Map<String, String> headerLis = new HashMap<>();
-        ResultModel model = handle.get(url,uriParam,headerLis);
-        if(model == null || model.getModel() == null){
-            throw new BusinessException(BussinessErrorCodeEnum.BIZ_ERROR,"调用http请求失败！");
-        }
-        return (Map<String,Object>)model.getModel();
-    }
+	public String createOrder(String bodyJson) throws BusinessException {
+		Map<String, Object> uriParam = new HashMap<>();
+		uriParam.put("id", 1);
+		ResultModel httpResult = null;
+		try {
+			httpResult = handle.get(HTTPHOST, uriParam, this.getHttpHeaders());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (httpResult == null || httpResult.getModel() == null) {
+			throw new BusinessException(BussinessErrorCodeEnum.BIZ_ERROR, "调用http请求失败！");
+		}
+		return (String) httpResult.getModel();
+	}
+
+	private Map<String, String> getHttpHeaders() {
+		Map<String, String> headers = new HashMap<>();
+		headers.put(API_VERSION_KEY, API_VERSION_VALUE);
+		headers.put(TOKEN, "xN3wZD8vDzt8p6mX5seQ");
+		return headers;
+	}
+
 }
