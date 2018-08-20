@@ -6,6 +6,9 @@ import com.solo.common.model.ResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Author gaojian
  * @Date 2018/8/16
@@ -25,5 +28,18 @@ public class HttpProxy {
             throw new BusinessException(BussinessErrorCodeEnum.BIZ_ERROR,"调用http请求失败！");
         }
         return (String) httpResult.getModel();
+    }
+
+    public Map<String,Object> getGitLabproject() throws BusinessException {
+
+        List<NameValuePair> formparams = new ArrayList <NameValuePair>();
+        String url = "http://git.doctorwork.com/projects";
+        Map<String, Object> uriParam = new HashMap<>();
+        Map<String, String> headerLis = new HashMap<>();
+        ResultModel model = handle.get(url,uriParam,headerLis);
+        if(model == null || model.getModel() == null){
+            throw new BusinessException(BussinessErrorCodeEnum.BIZ_ERROR,"调用http请求失败！");
+        }
+        return (Map<String,Object>)model.getModel();
     }
 }

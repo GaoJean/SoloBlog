@@ -59,7 +59,7 @@ public class TestController extends BaseController{
     @PostMapping("/testHttp")
     public ResultModel testHttp() throws BusinessException {
 
-        return success(httpProxy.createOrder("a"));
+        return success(httpProxy.getGitLabproject());
     }
 
 

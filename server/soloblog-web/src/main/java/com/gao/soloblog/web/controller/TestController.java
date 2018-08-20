@@ -34,4 +34,21 @@ public class TestController {
         response.setSuccess("0");
         return new ResultModel(response);
     }
+
+    public static void main(String[] args) {
+        Map<String,Object> param = BeanMapperUtil.map(req,Map.class);
+    }
+
+    public static <T> T map(Object source, Class<T> targetClazz) {
+        try {
+            T target = targetClazz.newInstance();
+            BeanUtils.copyProperties(source, target);
+            return target;
+        } catch (InstantiationException e) {
+            logger.error(e.getMessage(), e);
+        } catch (IllegalAccessException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return null;
+    }
 }

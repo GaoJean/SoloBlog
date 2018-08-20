@@ -7,6 +7,7 @@ import com.solo.common.model.ResultModel;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import java.util.Map;
  * @Author gaojian
  * @Date 2018/8/16
  */
+@Component
 public class HttpHandle {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -79,6 +81,8 @@ public class HttpHandle {
 
         return requestBuilder;
     }
+
+
 
     public void setHttpClient(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient;
