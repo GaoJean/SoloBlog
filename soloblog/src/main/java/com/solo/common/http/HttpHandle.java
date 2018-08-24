@@ -19,36 +19,31 @@ import java.util.Map;
  */
 @Component
 public class HttpHandle {
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	private static final OkHttpClient okHttpClient = new OkHttpClient();
 
 	public static final MediaType APPLICATION_JSON = MediaType.parse("application/json; charset=utf-8");
 
-	public ResultModel post(String url, String bodyJson) throws BusinessException {
+	public ResultModel post(String url, String bodyJson) throws BusinessException, IOException {
 		return post(url, null, null, bodyJson);
 	}
 
-	public ResultModel post(String url, Map<String, String> headerList, String bodyJson) throws BusinessException {
+	public ResultModel post(String url, Map<String, String> headerList, String bodyJson) throws BusinessException, IOException {
 		return post(url, null, headerList, bodyJson);
 	}
 
 	public ResultModel post(String url, Map<String, Object> uriParam, Map<String, String> headerList, String bodyJson)
-			throws BusinessException {
+			throws BusinessException, IOException {
 		this.printParams(url, uriParam, headerList, bodyJson);
 		RequestBody requestBody = RequestBody.create(APPLICATION_JSON, bodyJson);
 		Request request = this.createRequest(url, uriParam, headerList).post(requestBody).build();
-		String resultJson = "";
-		logger.info("POST HTTP REQUEST WITH request={}, header ={}, body = {}", request, request.headers(), bodyJson);
-
-		try (Response response = okHttpClient.newCall(request).execute()) {
-			resultJson = response.body().string();
-			logger.info("RESULT with body={}, response = {}", resultJson, response);
-			return JSON.parseObject(resultJson, ResultModel.class);
-		} catch (Exception e) {
-			logger.error("POST HTTP 失败 with json = {}, exception = {}", resultJson, e);
-			throw new BusinessException(BussinessErrorCodeEnum.BIZ_ERROR.getCode(), e.getMessage());
-		}
+		Response response = okHttpClient.newCall(request).execute();
+		String resultJson = JSONObject.toJSONString(response.body());
+		this.validateResult(response, url);
+		logger.info("RESULT with body={}, response = {}", resultJson, response);
+		return JSON.parseObject(resultJson, ResultModel.class);
 	}
 
 	public ResultModel get(String url, Map<String, Object> uriParam, Map<String, String> headerList)
@@ -56,7 +51,7 @@ public class HttpHandle {
 		this.printParams(url, uriParam, headerList, "");
 		Request request = this.createRequest(url, uriParam, headerList).get().build();
 		Response response = okHttpClient.newCall(request).execute();
-		String resultJson = response.body().string();
+		String resultJson = JSONObject.toJSONString(response.body());
 		this.validateResult(response, url);
 		logger.info("RESULT with body={}, response = {}", resultJson, response);
 		return JSON.parseObject(resultJson, ResultModel.class);

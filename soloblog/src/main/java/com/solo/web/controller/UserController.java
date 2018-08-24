@@ -1,13 +1,18 @@
 package com.solo.web.controller;
 
+import com.solo.common.exception.BusinessException;
 import com.solo.common.model.ResultModel;
 import com.solo.common.verify.Verification;
+import com.solo.web.adaptor.LoginAdaptor;
 import com.solo.web.adaptor.UserAdaptor;
 import com.solo.web.entity.request.user.LoginRequest;
 import com.solo.web.entity.response.user.LoginResponse;
+import com.solo.web.service.BaseHandle;
+import com.solo.web.service.HandleRouter;
+import com.solo.web.service.loginservice.LoginService1;
+import com.solo.web.service.loginservice.LoginService2;
+import com.solo.web.service.loginservice.LoginService3;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +23,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController extends BaseController{
 
+
     @Autowired
     private UserAdaptor userAdaptor;
+
+    @Autowired
+    private LoginAdaptor loginAdaptor;
 
     @PostMapping("/login")
     @ApiOperation(value = "login",notes = "登录")
@@ -39,5 +48,13 @@ public class UserController extends BaseController{
         logger.info("{用户管理UserController}[方法入：get(),参数：userId = {}]",userId);
         ResultModel resultModel = new ResultModel();
         return resultModel;
+    }
+
+    @GetMapping("/testlogin")
+    @ApiOperation(value = "testlogin",notes = "登录test")
+    @Verification(token = false)
+    public ResultModel testlogin(@RequestParam(value = "name") String name,
+                                 @RequestParam(value = "type") Integer type) throws BusinessException {
+        return success(loginAdaptor.login(name,type));
     }
 }

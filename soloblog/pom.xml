@@ -144,12 +144,20 @@
 		</dependency>
 		-->
 
+		<!-- http请求 -->
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
 			<version>3.10.0</version>
 		</dependency>
 
+		<!--性能测试-->
+		<dependency>
+			<groupId>org.databene</groupId>
+			<artifactId>contiperf</artifactId>
+			<version>2.3.4</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

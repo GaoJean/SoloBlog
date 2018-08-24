@@ -64,6 +64,10 @@ public class TestController extends BaseController{
 
 
 
+    public ResultModel desgin(){
+        return success();
+    }
+
 
 
 }

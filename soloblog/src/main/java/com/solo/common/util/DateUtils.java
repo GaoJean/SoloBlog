@@ -14,7 +14,8 @@ import java.util.Date;
  *
  */
 public class DateUtils {
-	
+
+	public static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
 	
     /**
      * 把日期转化为普通字符串
