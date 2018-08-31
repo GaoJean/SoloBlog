@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Jenkins Server Config -->
+	<bean id="jenkinsServer" class="com.offbytwo.jenkins.JenkinsServer">
+		<constructor-arg index="0">
+			<bean class="java.net.URI"><constructor-arg value="http://jenkins.doctorwork.com/"/></bean>
+		</constructor-arg>
+		<constructor-arg index="1" value="dev" />
+		<constructor-arg index="2" value="doctorwork" />
+	</bean>
+</beans>

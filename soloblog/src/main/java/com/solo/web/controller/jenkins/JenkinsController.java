@@ -28,9 +28,8 @@ public class JenkinsController extends BaseController {
     @ApiOperation(value = "getJob", notes = "jenkins get job")
     @Verification(token = false)
     public ResultModel getJob() throws IOException, URISyntaxException {
-        String env = "http://jenkins.doctorwork.com";
         String jobName = "c-dev-healthapp-vaccine";
-        return success(jenkinsAdaptor.getJob(env,jobName));
+        return success(jenkinsAdaptor.getJob(jobName));
     }
 
     @GetMapping("/job/list")
@@ -45,10 +44,19 @@ public class JenkinsController extends BaseController {
     @ApiOperation(value = "jobGet1111", notes = "jenkins get job")
     @Verification(token = false)
     public ResultModel jobGet1111() throws IOException, URISyntaxException {
-        String env = "http://jenkins.doctorwork.com";
         String jobName = "c-dev-healthapp-vaccine";
         return success(jenkinsAdaptor.getStartTImeAndEndTime(jobName));
     }
+
+    @GetMapping("/job/lastSuccessConsole")
+    @ApiOperation(value = "getJobLastSuccessConsole", notes = "getJobLastSuccessConsole")
+    @Verification(token = false)
+    public ResultModel getJobLastSuccessConsole() throws IOException {
+        String jobName = "c-dev-healthapp-vaccine";
+        return success(jenkinsAdaptor.getJobLastSuccessConsole(jobName));
+    }
+
+
 
 
 }
