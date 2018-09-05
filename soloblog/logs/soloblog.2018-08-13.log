@@ -1,9 +1,0 @@
-2018-08-13 16:40:16.941 [main] ERROR com.solo.common.util.BeanMapperUtil - java.util.Map
-java.lang.InstantiationException: java.util.Map
-	at java.lang.Class.newInstance(Class.java:427)
-	at com.solo.common.util.BeanMapperUtil.map(BeanMapperUtil.java:19)
-	at com.solo.web.controller.TestController.main(TestController.java:38)
-Caused by: java.lang.NoSuchMethodException: java.util.Map.<init>()
-	at java.lang.Class.getConstructor0(Class.java:3082)
-	at java.lang.Class.newInstance(Class.java:412)
-	... 2 common frames omitted
