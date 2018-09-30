@@ -5,6 +5,7 @@ import com.offbytwo.jenkins.model.*;
 import com.solo.BaseTest;
 import com.solo.common.util.DateUtils;
 import com.solo.common.util.jenkins.JenkinsServerUtil;
+import com.solo.web.entity.response.user.LoginResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,11 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
@@ -45,6 +44,67 @@ public class JenkinsJob extends BaseTest {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    @Test
+    public void sortTest() throws Exception {
+        /*String a = "release-1.0.9";
+        String b = "release-1.0.10";
+        Byte aaa = new Byte(a);
+        Byte bbb = new Byte(b);
+//        Long aa = Long.valueOf(a);
+//        Long bb = Long.valueOf(b);
+        System.out.println(aaa);
+        System.out.println(bbb);
+
+        if(aaa<bbb){
+            System.out.println("ok");
+        }*/
+
+        List<String> list = new ArrayList<>();
+        list.add("release-1.0.1");
+        list.add("release-1.0.9");
+        list.add("release-1.0.11.02");
+        list.add("release-1.0.10");
+        list.add("release-1.0.11.1");
+        String max = "";
+        for (int i = 0; i <list.size() -1; i++) {
+            if(compareVersion(list.get(i),list.get(i+1)) >0){
+                max = list.get(i);
+            }else {
+                max = list.get(i+1);
+            }
+        }
+        System.out.println(max);
+        /*List<String> a = list.stream().sorted(Comparator.).collect(Collectors.toList());
+
+        System.out.println(a);*/
+    }
+
+    /**
+     * 比较版本号的大小,前者大则返回一个正数,后者大返回一个负数,相等则返回0
+     * @param version1
+     * @param version2
+     * @return
+     */
+    public static int compareVersion(String version1, String version2) throws Exception {
+        if (version1 == null || version2 == null) {
+            throw new Exception("compareVersion error:illegal params.");
+        }
+        String[] versionArray1 = version1.split("-");//注意此处为正则匹配，不能用"."；
+        String[] versionArray2 = version2.split("-");
+        int idx = 0;
+        int minLength = Math.min(versionArray1.length, versionArray2.length);//取最小长度值
+        int diff = 0;
+        while (idx < minLength
+                && (diff = versionArray1[idx].length() - versionArray2[idx].length()) == 0//先比较长度
+                && (diff = versionArray1[idx].compareTo(versionArray2[idx])) == 0) {//再比较字符
+            ++idx;
+        }
+        //如果已经分出大小，则直接返回，如果未分出大小，则再比较位数，有子版本的为大；
+        diff = (diff != 0) ? diff : versionArray1.length - versionArray2.length;
+        return diff;
     }
 
     @Test
@@ -179,7 +239,7 @@ public class JenkinsJob extends BaseTest {
 
     @Test
     public void isSuccess() {
-        int number = 303;
+        int number = 413;
         boolean flag = false;
         String jobName = "android-health";
         try {

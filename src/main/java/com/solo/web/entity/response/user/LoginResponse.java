@@ -16,4 +16,5 @@ public class LoginResponse extends BaseResponse {
     private String username;
     private String userId;
     private String nikename;
+    private Integer status;
 }

@@ -14,4 +14,7 @@ spring:
       prefix: classpath:/templates/
   thymeleaf:
     prefix: classpath:/templates/
+server:
+  port: 8081
+
 
