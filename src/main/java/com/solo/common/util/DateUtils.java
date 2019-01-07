@@ -344,4 +344,9 @@ public class DateUtils {
          long days = diff / 1000;
          return Long.valueOf(String.valueOf(days));
     }
+
+	public static void main(String[] args) {
+    	Date now = new Date();
+		System.out.println(isCurrentDateGreaterthanDbDate(now));
+	}
 }

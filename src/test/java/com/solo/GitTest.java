@@ -1,6 +1,7 @@
 package com.solo;
 
 import com.google.common.collect.Lists;
+import com.solo.common.http.HttpHandle;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.api.TagCommand;
@@ -10,6 +11,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,7 +19,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +32,8 @@ import java.util.stream.Collectors;
 @SpringBootTest
 public class GitTest extends BaseTest {
     private static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+@Autowired
+    HttpHandle httpHandle;
     @Test
     public void commitId() {
         File repoDir = new File("C:\\Users\\gaojian\\doctorwork\\workspace\\shorturl-web\\.git");
@@ -98,4 +103,6 @@ public class GitTest extends BaseTest {
         }
         git.close();
     }
+
+
 }
